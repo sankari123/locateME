@@ -20,7 +20,8 @@
         {
 		 latitude = position.coords.latitude;
                 longitude = position.coords.longitude;
-                
+                document.getElementById("lat1").value=latitude;
+			   document.getElementById("long1").value= longitude;
 				
 		  // alert(latitude);
 		    var c = document.getElementById("myCanvas");
@@ -53,6 +54,14 @@
         width: 700px;
     </style>
     <body>
+	    <table>
+<form id="add_contact" action="tstphp.php" method="post">
+<input type="text" id="lat1" /> <br />
+<input type="text" id="long1" /> 
+
+<tr><td><input type="submit" value="LIST" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
+</form>
+	    </table>
         <div>
 			<div id="mapPlaceholder">  <canvas id="myCanvas">   </canvas></div>
         </div>
