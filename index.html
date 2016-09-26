@@ -2,17 +2,18 @@
 <html>
     <head>
 	<script type="text/javascript" src="cordova.js"></script>
-        <script src="http://maps.google.com/maps/api/js?sensor=false">
-        </script>
+        <script src="http://maps.google.com/maps/api/js?sensor=false"> </script>
         <script>
-		
-		function showMenu()
- {
-      alert(latitude); 
-window.location.href = "http://www.writeacademy.in/dive/passVar1.php?lat1=" + latitude+"&long1="+longitude; 
-     }
-		
-		var latitude ;
+		var canvas,ctx;
+    var mouseX,mouseY,mouseDown=0;
+    var touchX,touchY;
+    var lastX,lastY=-1;
+	var tmp;
+    var pictureSource;   // picture source
+    var destinationType; // sets the format of returned value
+   var drawn=null;
+    document.addEventListener("deviceready",onDeviceReady,false);
+    var latitude ;
 		var longitude;
             if (navigator.geolocation)
             {
@@ -22,6 +23,22 @@ window.location.href = "http://www.writeacademy.in/dive/passVar1.php?lat1=" + la
             {
                alert("Geolocation API not supported.");
             }
+		
+    function onDeviceReady() {
+    	 document.addEventListener("backbutton", function (e) {
+        e.preventDefault(); 
+    navigator.notification.confirm("Do you want to exit DIVE?", onConfirmExit, "DIVE", "Yes,No");
+    }, false );
+}
+		//
+		
+		function showMenu()
+ {
+      alert(latitude); 
+window.location.href = "http://www.writeacademy.in/dive/passVar1.php?lat1=" + latitude+"&long1="+longitude; 
+     }
+		
+		
 			
 			function handle_geolocation_query(position)
         {
