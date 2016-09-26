@@ -14,7 +14,7 @@
 		function showMenu()
  {
       alert(latitude); 
-window.location.href = "http://www.writeacademy.in/dive/tstphp.php?lat1=" + latitude+"&long1="+longitude; 
+window.location.href = "http://www.writeacademy.in/dive/passVar1.php?lat1=" + latitude+"&long1="+longitude; 
      }
 		
 		var latitude ;
@@ -67,7 +67,7 @@ window.location.href = "http://www.writeacademy.in/dive/tstphp.php?lat1=" + lati
     </style>
     <body>
 	    <table>
-<form id="add_contact" action="tstphp.php" method="post">
+<form id="add_contact" action="passVar1.php" method="post">
 <input type="hidden" id="lat1" /> <br />
 <input type="hidden" id="long1" /> 
 <tr><td><input type="button" value="LIST" onclick="showMenu();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
