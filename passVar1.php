@@ -72,13 +72,14 @@ echo "<br />";
 ?>
 <script>
 
-
-//var js-variable = "<?= $master[0] ?>";
+	var tmp1;
+	tmp1='';
+var extentions[];
 function test()
 {
 	var testStr;
 	var js_array = [<?php echo '"'.implode('","', $master).'"' ?>];
-    alert(js_array[0]);
+    //alert(js_array[0]);
 	var index;
 
   var list = document.getElementById('anrede');
@@ -89,9 +90,15 @@ function test()
    start = 1;
    result = item.split(delimiter, start+1).join(delimiter);
    option.value = result;
+	  extentions[] = result.split(',');
+	 // arrLat[0]=
+	  tmp1 +=tmp1+"&markers=color:blue|label:U|" + extentions[0] + ',' + extentions[1];
+	
    list.appendChild(option);
 });
-window.location.href="index.html?locArray="+js_array;
+	  alert(trim(tmp1));
+//window.location.href="index.html?locArray="+js_array;
+	//pop();
 }
 
 
@@ -137,14 +144,14 @@ window.location.href="index.html?locArray="+js_array;
 <datalist id="anrede"></datalist>
 
 
-<textarea  id=a1 cols=100 rows=5 > <?php echo $master[0] ?></textarea><br>
+<!--<textarea  id=a1 cols=100 rows=5 > <?php echo $master[0] ?></textarea><br>
 <input type=text id=loc[0]  size=60 value=<?php echo $a[0]?>><br>
 <input type=text id=loc[1]  size=60 value=<?php echo $a[0]?>><br>
 <input type=text id=loc[2]  size=60 value=<?php echo $a[1]?>><br>
 <input type=text id=loc[3]  size=60 value=<?php echo $a[2]?>><br>
 <input type=text id=loc[4]  size=60 value=<?php echo $master[0]?>><br>
 <input type=text id=loc[5]  size=60 value=<?php echo $master[0]?>><br>
-<input type=text id=loc[6]  size=60 value=<?php echo $master[0]?>><br>
+<input type=text id=loc[6]  size=60 value=<?php echo $master[0]?>><br>-->
 
 </body>
 
