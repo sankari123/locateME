@@ -34,55 +34,30 @@
 		
 		function showMenu()
  {
-     // alert(latitude); 
+     alert("back in'); 
 //window.location.href = "http://www.writeacademy.in/dive/tstphp.php?lat1=" + latitude+"&long1="+longitude; 
      }
-	function ajaxFunction(){
-   var ajaxRequest;  // The variable that makes Ajax possible!
-   try{
+	function showUser() {
+     
+        if (window.XMLHttpRequest) {
+            // code for IE7+, Firefox, Chrome, Opera, Safari
+            xmlhttp = new XMLHttpRequest();
+        } else {
+            // code for IE6, IE5
+            xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+        }
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        };
+		var queryString = latitude ;
    
-      // Opera 8.0+, Firefox, Safari
-      ajaxRequest = new XMLHttpRequest();
-   }catch (e){
-      
-      // Internet Explorer Browsers
-      try{
-         ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-      }catch (e) {
-         
-         try{
-            ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-         }catch (e){
-         
-            // Something went wrong
-            alert("Your browser broke!");
-            return false;
-         }
-      }
-   }
-   
-   // Create a function that will receive data
-   // sent from the server and will update
-   // div section in the same page.
-   ajaxRequest.onreadystatechange = function(){
-   
-      if(ajaxRequest.readyState == 4){
-         var ajaxDisplay = document.getElementById('ajaxDiv');
-         ajaxDisplay.innerHTML = ajaxRequest.responseText;
-      }
-   }
-   
-   // Now get the value from user and pass it to
-   // server script.
- //  var age = document.getElementById('age').value;
-  // var wpm = document.getElementById('wpm').value;
-   //var sex = document.getElementById('sex').value;
-   var queryString = "?lat1=" + latitude ;
-   
-   queryString +=  "&long1=" + longitude;
-   ajaxRequest.open("GET", "passVar1.php" + queryString, true);
-   ajaxRequest.send(null); 
-}	
+            queryString +=  "&long1=" + longitude;
+        xmlhttp.open("GET","passVar1.php?lat1="+queryString,true);
+        xmlhttp.send();
+    
+}
 		
 			
 			function handle_geolocation_query(position)
@@ -108,6 +83,7 @@
             imageObj.onload = function(){
               context.drawImage(imageObj, 0, 0);
             }
+	    showUser();
         }
 		
         </script>
@@ -122,12 +98,12 @@
         height: 400px;
         width: 700px;
     </style>
-    <body>
+    <body onload="showMenu();">
 	    <table>
 <form id="add_contact" action="passVar1.php" method="post">
 <input type="hidden" id="lat1" /> <br />
 <input type="hidden" id="long1" /> 
-<tr><td><input type="button" value="LIST" onclick="ajaxFunction();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
+<tr><td><input type="button" value="LIST" onclick="showUser();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
 </form>
 	    </table>
         <div>
