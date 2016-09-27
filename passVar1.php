@@ -1,3 +1,3 @@
 <?php
-print $_GET["lat1"];
+echo $_GET["lat1"];
 ?>
