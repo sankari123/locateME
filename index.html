@@ -154,17 +154,22 @@ navigator.geolocation.getCurrentPosition(handle_geolocation_query);
 	#mapPlaceholder {
         height: 400px;
         width: 700px;
+	    }
+	 .hideDontTakeUpSpace
+        {
+            display:none;
+        }
     </style>
     <body onload="procVal();">
 	    <table>
 <form id="add_contact" action="passVar1.php" method="post">
 <input type="text" id="lat1" /> <br />
 <input type="text" id="long1" /> 
-<div id='ajaxDiv'>Your result will display here
+<div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here
 
 </div>
-<textarea id="rest1" rows=10 cols=50></textarea>
-<textarea id="tmpD" rows=10 cols=50></textarea>
+<textarea class="hideDontTakeUpSpace" id="rest1" rows=10 cols=50></textarea>
+<textarea id="tmpD" class="hideDontTakeUpSpace" rows=10 cols=50></textarea>
 <tr><td><input type="button" value="LIST" onclick="ajaxFunction();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
 </form>
 	    </table>
