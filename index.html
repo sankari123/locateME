@@ -168,7 +168,12 @@ function alertDismissed() {
     </style>
     <body onload="procVal();">
 	    
-       
+  <table>
+<textarea class="hideDontTakeUpSpace" id="rest1" rows=10 cols=50></textarea>
+<textarea id="tmpD" rows=10 cols=50></textarea>
+<tr><td><input type="button" value="LIST" onclick="ajaxFunction();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
+
+	    </table>     
 <div id="mapPlaceholder">  <canvas id="myCanvas">   </canvas></div>
    <form id="add_contact" action="passVar1.php" method="post">
 <input type="text" id="lat1" /> <br />
@@ -177,11 +182,6 @@ function alertDismissed() {
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here
 
 </div>
-			    <table>
-<textarea class="hideDontTakeUpSpace" id="rest1" rows=10 cols=50></textarea>
-<textarea id="tmpD" class="hideDontTakeUpSpace" rows=10 cols=50></textarea>
-<tr><td><input type="button" value="LIST" onclick="ajaxFunction();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
-
-	    </table>
+			    
     </body>
 </html>
