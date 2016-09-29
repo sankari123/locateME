@@ -129,9 +129,9 @@ function alertDismissed() {
 		
 			if(flg=='y')
 		{
-		alert(tmpDat1);
+		//alert(tmpDat1);
 
-		 var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom=12&size="+c.width+"x"+c.height+tmpDat1;
+		 var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom=12&size="+c.width+"x"+c.height+document.getElementById("tmpD").value;
 		}
 		else
 		{
@@ -167,20 +167,21 @@ function alertDismissed() {
         }
     </style>
     <body onload="procVal();">
-	    <table>
-<form id="add_contact" action="passVar1.php" method="post">
+	    
+       
+<div id="mapPlaceholder">  <canvas id="myCanvas">   </canvas></div>
+   <form id="add_contact" action="passVar1.php" method="post">
 <input type="text" id="lat1" /> <br />
 <input type="text" id="long1" /> 
+			    </form>
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here
 
 </div>
+			    <table>
 <textarea class="hideDontTakeUpSpace" id="rest1" rows=10 cols=50></textarea>
 <textarea id="tmpD" class="hideDontTakeUpSpace" rows=10 cols=50></textarea>
 <tr><td><input type="button" value="LIST" onclick="ajaxFunction();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
-</form>
+
 	    </table>
-        <div>
-			<div id="mapPlaceholder">  <canvas id="myCanvas">   </canvas></div>
-        </div>
     </body>
 </html>
