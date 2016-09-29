@@ -34,9 +34,79 @@
 		
 		function showMenu()
  {
-     alert("back in"); 
+    
+	
 //window.location.href = "http://www.writeacademy.in/dive/tstphp.php?lat1=" + latitude+"&long1="+longitude; 
      }
+	 var return_data;
+	 var return_data1;
+	 
+	function ajaxFunction(){
+         var hr=new XMLHttpRequest();
+		 var url="passVar1.php";
+		 var queryString = "lat1=" + latitude +"&long11=" + longitude;
+		// alert(queryString);
+         hr.open("POST",url,true);
+		hr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		hr.onreadystatechange=function(){
+		if(hr.readyState==4 && hr.status==200)
+		{
+		return_data=hr.responseText;
+		return_data1=return_data;
+	document.getElementById("ajaxDiv").innerHTML=return_data1;
+	document.getElementById('rest1').value=return_data;
+	procVal();
+			}
+		
+		}
+   hr.send(queryString);
+ document.getElementById("ajaxDiv").innerHTML="Procesing......";
+ //document.getElementById("rest1").value="processing";
+  
+  
+
+}
+var locArr;
+var tmpDat1;
+var latR;
+
+var result;
+function procVal()
+{
+//document.getElementById('rest1').value=document.getElementById("ajaxDiv").innerHTML;
+if(document.getElementById("rest1").value.length==0)
+{
+flg='n';
+alert("1");
+}
+else
+{
+locArr = document.getElementById("rest1").value;
+locArr = locArr.substring(0, locArr.length - 1);
+locArr=locArr.split('#');
+//var a = ["a", "b", "c"];
+tmpDat1='';
+locArr.forEach(function(item){
+   delimiter = ',';
+   start = 1;
+   result = item.split(delimiter, start+1).join(delimiter);
+   //alert(result);
+  // latR=result.substring(result.indexOf(',')+1);
+   latR=result.split(',');
+  // alert(latR);
+   tmpDat1 +="&markers=color:blue|label:U|" +latR[0]+","+latR[1];
+  // alert(tmpDat1);
+   //option.value = result;
+   //list.appendChild(option);
+});
+document.getElementById("tmpD").value=tmpDat1;
+flg='y';
+}
+if(flg=='y')
+{//alert(trim(tmpDat1));
+navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+}
+}
 		
 			
 			function handle_geolocation_query(position)
@@ -46,13 +116,21 @@
                 document.getElementById("lat1").value=latitude;
 			   document.getElementById("long1").value= longitude;
 				
-		  // alert(latitude);
+		 // alert(longitude);
 		    var c = document.getElementById("myCanvas");
 			var ctx = c.getContext("2d");
 			ctx.clearRect(0,0,c.width, c.height);
    		   c.width = window.innerWidth;
 			c.height = window.innerHeight;
+			if(flg=='y')
+		{
+		alert(tmpDat1);
+		 var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom=9&size="+c.width+"x"+c.height+tmpDat1;
+		}
+		else
+		{
            var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom=16&size="+c.width+"x"+c.height+"&markers=color:blue|label:U|" +latitude + ',' + longitude;
+		   }
 			//var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom=19&size=300x400&markers=color:blue|label:U|" +latitude + ',' + longitude;
             var canvas = document.getElementById("myCanvas");
             var context = canvas.getContext("2d");   
@@ -64,45 +142,6 @@
             }
 	  //  showUser();
         }
-		
-		
-		function ajaxFunction(){
-   var ajaxRequest;  // The variable that makes Ajax possible!
-   try{
-   
-        ajaxRequest = new XMLHttpRequest();
-   }catch (e){
-      
-         try{
-         ajaxRequest = new ActiveXObject("Msxml2.XMLHTTP");
-      }catch (e) {
-         
-         try{
-            ajaxRequest = new ActiveXObject("Microsoft.XMLHTTP");
-         }catch (e){
-         
-             alert("Your browser broke!");
-            return false;
-         }
-      }
-   }
-   
-    ajaxRequest.onreadystatechange = function(){
-   
-      if(ajaxRequest.readyState == 4){
-         var ajaxDisplay = document.getElementById('ajaxDiv');
-         ajaxDisplay.innerHTML = ajaxRequest.responseText;
-      }
-   }
-   
-    
-   var queryString = latitude ;
-   
-            queryString +=  "&long1=" + longitude;
-			alert(queryString);
-        xmlhttp.open("GET","passVar1.php?lat1="+queryString,true);
-      }
-		
 		
         </script>
      <title>DIVE</title>
@@ -116,11 +155,16 @@
         height: 400px;
         width: 700px;
     </style>
-    <body>
+    <body onload="procVal();">
 	    <table>
 <form id="add_contact" action="passVar1.php" method="post">
-<input type="hidden" id="lat1" /> <br />
-<input type="hidden" id="long1" /> 
+<input type="text" id="lat1" /> <br />
+<input type="text" id="long1" /> 
+<div id='ajaxDiv'>Your result will display here
+
+</div>
+<textarea id="rest1" rows=10 cols=50></textarea>
+<textarea id="tmpD" rows=10 cols=50></textarea>
 <tr><td><input type="button" value="LIST" onclick="ajaxFunction();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
 </form>
 	    </table>
