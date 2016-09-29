@@ -107,6 +107,10 @@ if(flg=='y')
 navigator.geolocation.getCurrentPosition(handle_geolocation_query);
 }
 }
+function alertDismissed() {
+    // do something
+}
+
 		
 			
 			function handle_geolocation_query(position)
@@ -122,9 +126,15 @@ navigator.geolocation.getCurrentPosition(handle_geolocation_query);
 			ctx.clearRect(0,0,c.width, c.height);
    		   c.width = window.innerWidth;
 			c.height = window.innerHeight;
+		
 			if(flg=='y')
 		{
-		//alert(tmpDat1);
+		navigator.notification.alert(
+    'You are the winner!',  // message
+    alertDismissed,         // callback
+    'Game Over',            // title
+    'Done'                  // buttonName
+);
 		 var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom=9&size="+c.width+"x"+c.height+tmpDat1;
 		}
 		else
