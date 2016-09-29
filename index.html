@@ -129,13 +129,9 @@ function alertDismissed() {
 		
 			if(flg=='y')
 		{
-		navigator.notification.alert(
-    'You are the winner!',  // message
-    alertDismissed,         // callback
-    'Game Over',            // title
-    'Done'                  // buttonName
-);
-		 var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom=9&size="+c.width+"x"+c.height+tmpDat1;
+		alert(tmpDat1);
+
+		 var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom=12&size="+c.width+"x"+c.height+tmpDat1;
 		}
 		else
 		{
