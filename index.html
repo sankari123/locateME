@@ -3,7 +3,7 @@
     <head>
 	<script type="text/javascript" src="cordova.js"></script>
         <script src="http://maps.google.com/maps/api/js?sensor=false"> </script>
-		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTGsC54Q-CH9L0c3R6MRhjatNKS3VHrfQ" type="text/javascript"></script>
+		
         <script>
 		var canvas,c, ctx;
 		var flg;
@@ -15,8 +15,8 @@
 		var tmpDat1;
 		var latR;
 		var result;
-		var zoom;
-		zoom=19;
+		var zoom1;
+		zoom1=19;
 		document.addEventListener("deviceready",onDeviceReady,false);
 		if (navigator.geolocation)
           {
@@ -29,13 +29,13 @@
 		
         function zoomP()
 		{
-		  zoom++;
+		  zoom1++;
 		  navigator.geolocation.getCurrentPosition(handle_geolocation_query);
 		
 		}
 		function zoomM()
 		{
-		  zoom--;
+		  zoom1--;
 		  navigator.geolocation.getCurrentPosition(handle_geolocation_query);
 		
 		}
@@ -109,16 +109,17 @@ function procVal(){
         longitude = position.coords.longitude;
         c = document.getElementById("myCanvas");
 		ctx = c.getContext("2d");
-		c.width = window.innerWidth;
-		c.height = window.innerHeight;
+		//c.width = window.innerWidth;
+//c.height = window.innerHeight;
 		ctx.clearRect(0,0,c.width, c.height);
    		if(flg=='y')
 			{
-				var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," +longitude + "&zoom="+zoom+"&size="+c.width+"x"+c.height+tmpDat1+"&sensor=false";
+				zoom1=15;
+				var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," +longitude + "&zoom="+zoom1+"&size="+c.width+"x"+c.height+tmpDat1+"&sensor=false";
 			}
 		else
 			{
-           var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom="+zoom+"&size="+c.width+"x"+c.height+"&markers=color:blue|label:U|" +latitude + ',' + longitude;
+           var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom="+zoom1+"&size="+c.width+"x"+c.height+"&markers=color:blue|label:U|" +latitude + ',' + longitude;
 			}
 		var imageObj = new Image();
         imageObj.src = google_tile;
