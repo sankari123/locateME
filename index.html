@@ -27,7 +27,7 @@
              alert("Geolocation API not supported.");
           }
 		
-        function zoomP()
+                function zoomP()
 		{
 		  zoom1++;
 		  navigator.geolocation.getCurrentPosition(handle_geolocation_query);
@@ -40,15 +40,27 @@
 		
 		}
 		function onDeviceReady()
-{
+               {
 		
-    	 document.addEventListener("backbutton", function (e) {
-        e.preventDefault(); 
-    navigator.notification.confirm("Do you want to exit DIVE?", onConfirmExit, "DIVE", "Yes,No");
-    }, false );
+    	      document.addEventListener("backbutton", function (e) {
+             e.preventDefault(); 
+             navigator.notification.confirm("Do you want to exit DIVE?", onConfirmExit, "DIVE", "Yes,No");    }, false );
+              }
+	
+	function onConfirmExit(button) {
+    if(button==2){ //If User select a No, then return back;
+        return;
+    }else{
+    	if (navigator.app) {
+            navigator.app.exitApp();
+        }
+        else if (navigator.device) {
+            navigator.device.exitApp();
+        }
+       // navigator.app.exitApp(); // If user select a Yes, quit from the app.
+    }
 }
-	
-	
+		
 	 
 	function ajaxFunction(){
          var hr=new XMLHttpRequest();
