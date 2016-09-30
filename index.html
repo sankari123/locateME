@@ -114,7 +114,7 @@ function procVal(){
 		ctx.clearRect(0,0,c.width, c.height);
    		if(flg=='y')
 			{
-				zoom1=15;
+				zoom1=14;
 				var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," +longitude + "&zoom="+zoom1+"&size="+c.width+"x"+c.height+tmpDat1+"&sensor=false";
 			}
 		else
@@ -144,7 +144,7 @@ function procVal(){
     #myCanvas {
         height: 100%;
         width: 100%;
-		position: absolute;
+		position: fixed;
      }
 	#mapPlaceholder {
         height: 400px;
