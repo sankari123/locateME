@@ -127,7 +127,8 @@ function procVal(){
    		if(flg=='y')
 			{
 			zoom1=14;
-var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + lat1 + "," +long1 + "&zoom="+zoom1+"&size=400x700"+tmpDat1+"&sensor=false";
+				document.getElementById("btn").style.position = 'fixed';
+var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + lat1 + "," +long1 + "&zoom="+zoom1+"&size="+c.width+"x"+c.height+tmpDat1+"&sensor=false";
 			}
 		else
 			{
@@ -145,13 +146,17 @@ var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + lat1
      <title>DIVE</title>
     </head>
     <style>
-	    body, html {
+    body, html {
     width: 100%;
     height: 100%;
     margin: 0;
     padding: 0;
     overflow: hidden;
 }
+	 #tbl
+	    {
+	    position:fixed;
+	    }
 
     #myCanvas {
         height: 100%;
@@ -175,10 +180,15 @@ var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + lat1
   position: absolute;
   
 }
+	    #btn
+	    {
+	    position:absolute;
+	    }
+	    
 		
     </style>
     <body onload="procVal();">
-	    <table>
+	    <table id="tbl">
 <form id="add_contact" action="passVar1.php" method="post">
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
 <textarea id="tmpD"  class="hideDontTakeUpSpace" rows=1 cols=50></textarea>
@@ -190,7 +200,7 @@ var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + lat1
 			<div id="mapPlaceholder">  
 				<canvas id="myCanvas">   </canvas>
 					<menu >
-						<input type="button" style="z-index:2; position:absolute; top:0; left:0" value="+"/ onclick="zoomP();"><input type="button" value="-" style="z-index:2; position:absolute; top:0; left:2" onclick="zoomM();"/>
+						<input type="button" id="btn" style="z-index:2;  top:0; left:0" value="+"/ onclick="zoomP();"><input type="button" value="-" id="btn" style="z-index:2; top:0; left:2" onclick="zoomM();"/>
 					</menu>	
 					</div>
         </div>
