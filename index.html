@@ -162,12 +162,7 @@ function onConfirmExit(button) {
 		position: relative; 
 		
      }
-	#mapPlaceholder {
-        width: 100%;
-		height: 100%;
-		position: absolute;
-		}
-		 .hideDontTakeUpSpace
+	 .hideDontTakeUpSpace
         {
             display:none;
         }
@@ -177,6 +172,13 @@ function onConfirmExit(button) {
   left: 0;
   position: absolute;
   
+}
+	    #mapPlaceholder {
+  margin: 20px 0;
+  padding: 0;
+  height: 300px;
+  float: left;
+  width: 100%;
 }
 		
     </style>
@@ -190,7 +192,8 @@ function onConfirmExit(button) {
 </form>
 	    </table>
         <div>
-			<div id="mapPlaceholder">  
+			
+				<div id="mapPlaceholder" style="position: relative; overflow: hidden; transform: translateZ(0px); background-color: rgb(229, 227, 223);">
 				<canvas id="myCanvas">   </canvas>
 					<menu >
 						<input type="button" style="z-index:2; position:absolute; top:0; left:0" value="+"/ onclick="zoomP();"><input type="button" value="-" style="z-index:2; position:absolute; top:0; left:2" onclick="zoomM();"/>
