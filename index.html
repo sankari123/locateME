@@ -49,7 +49,7 @@ function ajax_post(){
     var vars = "lat1="+x+"&long11="+y;
     hr.open("POST", url, true);
     // Set content type header information for sending url encoded variables in the request
-    hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+   // hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // Access the onreadystatechange event for the XMLHttpRequest object
     hr.onreadystatechange = function() {
 	    if(hr.readyState == 4 && hr.status == 200) {
