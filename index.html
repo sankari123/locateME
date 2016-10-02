@@ -69,7 +69,7 @@ function ajax_post(){
 	zoom=14;
     var hr = new XMLHttpRequest();
     // Create some variables we need to send to our PHP file
-    var url = "http://www.writeacademy.in/dive/passVar1.php";
+    var url = "http://www.writeacademy.in/dive/passVar1.php?lat1="+x+"&long11="+y";
     var vars = "lat1="+x+"&long11="+y;
     hr.open("POST", url, true);
     // Set content type header information for sending url encoded variables in the request
@@ -84,7 +84,7 @@ function ajax_post(){
 	    }
     }
     // Send the data to PHP now... and wait for response to update the status div
-    hr.send(vars); // Actually execute the request
+    hr.send(url); // Actually execute the request
     //document.getElementById("status").innerHTML = "processing...";
 }
 
