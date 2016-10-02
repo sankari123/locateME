@@ -40,7 +40,7 @@
 
 		function loadTweets() {
     var request = new XMLHttpRequest();
-    request.open("GET", "passVar1.php?lat="+x+"&long11="+y, true);
+    request.open("POST", "passVar1.php?lat="+x+"&long11="+y, true);
     request.onreadystatechange = function() {//Call a function when the state changes.
         if (request.readyState == 4) {
             if (request.status == 200 || request.status == 0) {
