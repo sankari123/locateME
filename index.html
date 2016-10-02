@@ -41,7 +41,8 @@
 		}
 
 	
-		function loadTweets() {
+		function ajaxCall() {
+			zoom=14;
 var params = "lat1=" + x +"&long11=" + y; 
  var myURL="http://www.writeacademy.in/dive/passVar1.php"; 
         var request = new XMLHttpRequest(); 
@@ -52,7 +53,10 @@ var params = "lat1=" + x +"&long11=" + y;
 
         request.onreadystatechange = function() {//Call a function when the state changes. 
                 if(request.readyState == 4 && request.status == 200) { 
-                        alert("response: "+request.responseText); 
+                     //   alert("response: "+request.responseText);
+			document.getElementById("ajaxDiv").innerHTML = request.responseText;
+			document.getElementById('rest1').value=request.responseText;
+			procVal();
                 } 
         } 
         request.send(params); 
@@ -81,32 +85,6 @@ function myMap(position) {
   var marker1 = new google.maps.Marker({position:myCenter});
   var infowindow = new google.maps.InfoWindow();
   marker1.setMap(map1);
-}
-
-
-
-function ajax_post(){
-    // Create our XMLHttpRequest object
-	zoom=14;
-    var hr = new XMLHttpRequest();
-    // Create some variables we need to send to our PHP file
-    var url = "http://www.writeacademy.in/dive/passVar1.php?lat1="+x+"&long11="+y;
-    var vars = "lat1="+x+"&long11="+y;
-    hr.open("POST", url, true);
-    // Set content type header information for sending url encoded variables in the request
-   // hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    // Access the onreadystatechange event for the XMLHttpRequest object
-    hr.onreadystatechange = function() {
-	    if(hr.readyState == 4 && hr.status == 200) {
-		    var return_data = hr.responseText;
-			document.getElementById("ajaxDiv").innerHTML = return_data;
-			document.getElementById('rest1').value=return_data;
-			procVal();
-	    }
-    }
-    // Send the data to PHP now... and wait for response to update the status div
-    hr.send(url); // Actually execute the request
-    //document.getElementById("status").innerHTML = "processing...";
 }
 
 
@@ -202,12 +180,45 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 
 
 </script>
-<body onload="getLoc();">
-<input type="button" value="LIST" onclick="loadTweets();" /><input type="button" value="MAP" id="mapItm" onclick="showMenu();" />
-<div id='ajaxDiv'>Your result will display here</div>
-<textarea id="tmpD"   rows=6 cols=50></textarea>
-<textarea id="rest1" rows=6 cols=50></textarea>
-<div id="map" style="width:100%;height:500px"></div>
+	 <style>
+	body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
 
+    #myCanvas {
+        height: 100%;
+        width: 100%;
+		position: absolute; 
+		
+     }
+	#mapPlaceholder {
+        width: 100%;
+		height: 100%;
+		position: absolute;
+		}
+		 .hideDontTakeUpSpace
+        {
+            display:none;
+        }
+		#controls
+{
+  top: 0;
+  left: 0;
+  position: absolute;
+  
+}
+		
+    </style>
+	
+<body onload="getLoc();">
+<input type="button" value="LIST" onclick="ajaxCall();" /><input type="button" value="MAP" id="mapItm" onclick="showMenu();" />
+<div id="map" style="width:100%;height:500px"></div>
+<div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
+<textarea id="tmpD"  class="hideDontTakeUpSpace" rows=6 cols=50></textarea>
+<textarea id="rest1" class="hideDontTakeUpSpace" rows=6 cols=50></textarea>
 </body>
 </html>
