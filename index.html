@@ -188,7 +188,12 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 	if (unit=="N") { dist = dist * 0.8684 }
 	//return dist
 }
-
+function showTbl()
+	{
+	document.getElementById("map1").dispay="none";
+	document.getElementById("map1").visible=false;
+	document.getElementById("tbl").dispay="block";
+	}
 
 </script>
 <style>
@@ -218,14 +223,26 @@ body, html {
   position: absolute;
   
 }
+	#tbl
+	{
+		display:none;
+	}
 		
 </style>
 	</head>
 <body onload="getLoc();">
-	<table width="100%">
-		<tr bgcolor="#c0f4fe"><td width="50%"><input type="button" value="LIST" onclick="ajaxCall();" /></td><td width="50%"><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
+	<table width="100%" bgcolor="#d78f97">
+		<tr><td colspan=2>DIVE</td></tr>
+		<tr><td width="50%" align="center"><input type="button" value="LIST" onclick="ajaxCall();" /></td><td width="50%" align="center"><input type="button" value="MAP" id="mapItm" onclick="showTbl();" /></td></tr>
 	</table>
-<div id="map" style="position:fixed;width:100%;height:500px"><canvas id="map1">   </canvas></div>
+<div id="map" style="position:fixed;width:100%;height:500px">
+	<canvas id="map1">   </canvas>
+	<table id="tbl">
+		<tr><td>Test</td>><td>Test</td>><td>Test</td>><td>Test</td></tr>
+	</table>
+	
+	</div>
+	
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
 <textarea id="tmpD"  class="hideDontTakeUpSpace" rows=6 cols=50></textarea>
 <textarea id="rest1" class="hideDontTakeUpSpace" rows=6 cols=50></textarea>
