@@ -71,16 +71,16 @@ function ajaxFunction(){
 		 var url="passVar1.php";
 		 var queryString = "lat1=" + x +"&long11=" + y;
 		alert(queryString);
-         hr.open("POST",url,true);
+         	hr.open("POST",url,true);
 		hr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		hr.onreadystatechange=function(){
 		if(hr.readyState==4 && hr.status==200)
 		{
 			return_data=hr.responseText;
-			alert(return_data);
+			//alert(return_data);
 			//document.getElementById("ajaxDiv").innerHTML=return_data;
 			document.getElementById('rest1').value=return_data;
-			//procVal();
+			procVal();
 		}
 		
 		}
@@ -167,10 +167,12 @@ for (var i = 0, len = multiArr.length; i < len; i++) {
 
 </script>
 <body onload="procVal();">
+	<form id="add_contact" action="passVar1.php" method="post">
 <input type="button" value="LIST" onclick="ajaxFunction();" /><input type="button" value="MAP" id="mapItm" onclick="showMenu();" />
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
 <textarea id="tmpD"   rows=6 cols=50></textarea>
 <textarea id="rest1" rows=6 cols=50></textarea>
+	</form>
 <div id="map" style="width:100%;height:500px"></div>
 
 </body>
