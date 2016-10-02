@@ -70,16 +70,17 @@ function ajaxFunction(){
          var hr=new XMLHttpRequest();
 		 var url="passVar1.php";
 		 var queryString = "lat1=" + x +"&long11=" + y;
-		
+		alert(queryString);
          hr.open("POST",url,true);
 		hr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
 		hr.onreadystatechange=function(){
 		if(hr.readyState==4 && hr.status==200)
 		{
 			return_data=hr.responseText;
+			alert(return_data);
 			//document.getElementById("ajaxDiv").innerHTML=return_data;
 			document.getElementById('rest1').value=return_data;
-			procVal();
+			//procVal();
 		}
 		
 		}
