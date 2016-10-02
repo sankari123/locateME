@@ -42,19 +42,16 @@
 
 	
 		function loadTweets() {
-    var request = new XMLHttpRequest();
-    request.open("POST", "passVar1.php?lat="+x+"&long11="+y, true);
-    request.onreadystatechange = function() {//Call a function when the state changes.
-        if (request.readyState == 4) {
-            if (request.status == 200 || request.status == 0) {
-                var tweets = JSON.parse(request.responseText);
-                alert(tweets);
-             }
-        
-		}
-	}
-  //  console.log("asking for tweets");
-    request.send();
+   var url = "passVar1.php?lat1="+x+"&long11="+y;
+   //https://build.phonegap.com/api/v1/me?auth_token=XXX';
+var xhr = new XMLHttpRequest();
+
+xhr.addEventListener('readystatechange', function() {
+    alert('state: ' + xhr.readyState + ' | status: ' + xhr.status + ' | responseText: ' + xhr.responseText);
+}, false);
+
+xhr.open('get', url, true);
+xhr.send();
 }
 	
 	
