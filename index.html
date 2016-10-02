@@ -43,9 +43,9 @@ function myMap(position) {
   var mapCanvas = document.getElementById("map");
   var mapOptions = {center: myCenter, zoom: 18};
   var map = new google.maps.Map(mapCanvas, mapOptions);
-  var marker = new google.maps.Marker({position:myCenter});
+  var marker1 = new google.maps.Marker({position:myCenter});
   var infowindow = new google.maps.InfoWindow();
-  marker.setMap(map);
+  marker1.setMap(map);
 }
 
 
@@ -73,6 +73,7 @@ function ajaxFunction(){
  function procVal(){
 	if(document.getElementById("rest1").value.length==0)
 	{
+		getLoc();
 	}
 	else
 	{
@@ -145,23 +146,10 @@ for (var i = 0, len = multiArr.length; i < len; i++) {
 	
 	
 }
-function distance(lat1, lon1, lat2, lon2, unit) {
-	var radlat1 = Math.PI * lat1/180
-	var radlat2 = Math.PI * lat2/180
-	var theta = lon1-lon2
-	var radtheta = Math.PI * theta/180
-	var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-	dist = Math.acos(dist)
-	dist = dist * 180/Math.PI
-	dist = dist * 60 * 1.1515
-	if (unit=="K") { dist = dist * 1.609344 }
-	if (unit=="N") { dist = dist * 0.8684 }
-	//return dist
-}
 
 
 </script>
-<body onload="getLoc();">
+<body onload="procVal();">
 <input type="button" value="LIST" onclick="ajaxFunction();" /><input type="button" value="MAP" id="mapItm" onclick="showMenu();" />
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
 <textarea id="tmpD"   rows=6 cols=50></textarea>
