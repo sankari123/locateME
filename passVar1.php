@@ -7,10 +7,10 @@ mysql_connect("dive2016.db.5014787.hostedresource.com", "dive2016", "Anusha123#"
 mysql_select_db("dive2016") or die(mysql_error());  
   $master = array();
   $myArray= array();
-  if(isset($_POST['lat1']) && $_POST['long11']!='')
+  if(isset($_GET['lat1']) && $_GET['long11']!='')
   {
-$lat1=trim($_POST["lat1"]);
-$long11=trim($_POST["long11"]);
+$lat1=trim($_GET["lat1"]);
+$long11=trim($_GET["long11"]);
 $csv_output='';
 $sSQL= "SELECT loc_id, addr1,addr2,addr3,addr4,addr5,phone,latitude,longitude, ( 6371 * acos( cos( radians($lat1) ) * cos( radians( diveLoc.latitude ) ) * cos( radians(diveLoc.longitude) - radians($long11)) + sin(radians($lat1))  * sin( radians(diveLoc.latitude)))) AS distance FROM diveLoc HAVING distance < 30 ORDER BY distance LIMIT 0 , 11";
 $result = mysql_query($sSQL);
