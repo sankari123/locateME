@@ -5,18 +5,19 @@
 <script type="text/javascript" src="cordova.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js"></script>
 <script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<script src="jquery.min.js"></script>
+	
 
 <script>
 
 		var x,y;
 		var flg;
-	    var return_data;
+	    	var return_data;
 		var locArr;
 		var tmpDat1;
 		var latR;
 		var result;
 		var zoom;
+		var c,ctx;
 		var multiArr = [];
 		document.addEventListener("deviceready",onDeviceReady,false);
 		
@@ -89,6 +90,12 @@ function myMap(position) {
   var marker1 = new google.maps.Marker({position:myCenter});
   var infowindow = new google.maps.InfoWindow();
   marker1.setMap(map1);
+var c = document.getElementById("map1");
+var ctx = c.getContext("2d");
+var img = document.getElementById("map");
+img.onload = function(){
+    ctx.drawImage(img,0,0);
+}
 }
 
 
@@ -193,18 +200,13 @@ function distance(lat1, lon1, lat2, lon2, unit) {
     overflow: hidden;
 }
 
-    #myCanvas {
-        height: 100%;
+    #map1 {
+        height: 500px;
         width: 100%;
-		position: absolute; 
+	position: fixed; 
 		
      }
-	#mapPlaceholder {
-        width: 100%;
-		height: 100%;
-		position: absolute;
-		}
-		 .hideDontTakeUpSpace
+	 .hideDontTakeUpSpace
         {
             display:none;
         }
@@ -219,10 +221,10 @@ function distance(lat1, lon1, lat2, lon2, unit) {
     </style>
 	
 <body onload="getLoc();">
-	<table>
+	<table width="100%">
 		<tr><td width="50%"><input type="button" value="LIST" onclick="ajaxCall();" /></td><td width="50%"><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
 	</table>
-<div id="map" style="position:fixed;width:100%;height:500px"></div>
+<div id="map" style="position:fixed;width:100%;height:500px"><canvas id="map1">   </canvas></div>
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
 <textarea id="tmpD"  class="hideDontTakeUpSpace" rows=6 cols=50></textarea>
 <textarea id="rest1" class="hideDontTakeUpSpace" rows=6 cols=50></textarea>
