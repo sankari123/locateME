@@ -85,6 +85,7 @@
  </feature>
  <feature name="http://api.phonegap.com/1.0/media"/>
  <feature name="http://api.phonegap.com/1.0/file"/>
+ <feature name="http://api.phonegap.com/1.0/network"/>
  <feature name="Geolocation">
     <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
 </feature>
