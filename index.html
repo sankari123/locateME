@@ -191,8 +191,8 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 
 
 </script>
-	 <style>
-	body, html {
+<style>
+body, html {
     width: 100%;
     height: 100%;
     margin: 0;
@@ -207,13 +207,11 @@ function distance(lat1, lon1, lat2, lon2, unit) {
     display: block;
     z-index: 10;
 }
-		
-     }
-	 .hideDontTakeUpSpace
+ .hideDontTakeUpSpace
         {
             display:none;
         }
-		#controls
+#controls
 {
   top: 0;
   left: 0;
@@ -221,15 +219,15 @@ function distance(lat1, lon1, lat2, lon2, unit) {
   
 }
 		
-    </style>
-	
+</style>
+	</head>
 <body onload="getLoc();">
 	<table width="100%">
-		<tr><td width="50%"><input type="button" value="LIST" onclick="ajaxCall();" /></td><td width="50%"><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
+		<tr bgcolor="#c0f4fe"><td width="50%"><input type="button" value="LIST" onclick="ajaxCall();" /></td><td width="50%"><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
 	</table>
 <div id="map" style="position:fixed;width:100%;height:500px"><canvas id="map1">   </canvas></div>
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
 <textarea id="tmpD"  class="hideDontTakeUpSpace" rows=6 cols=50></textarea>
 <textarea id="rest1" class="hideDontTakeUpSpace" rows=6 cols=50></textarea>
 </body>
-</html>
+		</html>
