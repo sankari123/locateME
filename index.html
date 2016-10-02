@@ -25,6 +25,22 @@
 		navigator.notification.confirm("Do you want to exit DIVE?", onConfirmExit, "DIVE", "Yes,No");   }, false );
 		}
 
+	
+	function onConfirmExit(button) {
+    if(button==2){ //If User select a No, then return back;
+        return;
+    }else{
+    	if (navigator.app) {
+            navigator.app.exitApp();
+        }
+        else if (navigator.device) {
+            navigator.device.exitApp();
+        }
+       // navigator.app.exitApp(); // If user select a Yes, quit from the app.
+    }
+}
+
+	
 		function getLoc()
 		{
 		if (navigator.geolocation)
