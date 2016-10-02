@@ -71,7 +71,7 @@ function ajax_post(){
     // Create some variables we need to send to our PHP file
     var url = "http://www.writeacademy.in/dive/passVar1.php";
     var vars = "lat1="+x+"&long11="+y;
-    hr.open("GET", url, true);
+    hr.open("POST", url, true);
     // Set content type header information for sending url encoded variables in the request
    // hr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     // Access the onreadystatechange event for the XMLHttpRequest object
