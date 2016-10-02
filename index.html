@@ -1,32 +1,110 @@
 <!DOCTYPE html>
 <html>
-<script src="https://maps.googleapis.com/maps/api/js"></script>
-<script src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript" src="cordova.js"></script>
-<script>
-
-
-		var x,y;
+    <head>
+	<script type="text/javascript" src="cordova.js"></script>
+        <script src="http://maps.google.com/maps/api/js?sensor=false"> </script>
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBTGsC54Q-CH9L0c3R6MRhjatNKS3VHrfQ" type="text/javascript"></script>
+        <script>
+		var canvas,c, ctx;
 		var flg;
 	    var return_data;
+		
+		var latitude ;
+		var longitude;
 		var locArr;
 		var tmpDat1;
 		var latR;
 		var result;
 		var zoom;
-		var multiArr = [];
+		zoom=19;
 		document.addEventListener("deviceready",onDeviceReady,false);
+		if (navigator.geolocation)
+          {
+            navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+          }
+        else
+          {
+             alert("Geolocation API not supported.");
+          }
 		
-		function onDeviceReady()
+        function zoomP()
 		{
+		  zoom=zoom+1;
+		  alert(zoom);
+		  navigator.geolocation.getCurrentPosition(handle_geolocation_query);
 		
-    	document.addEventListener("backbutton", function (e) {
-        e.preventDefault(); 
-		navigator.notification.confirm("Do you want to exit DIVE?", onConfirmExit, "DIVE", "Yes,No");   }, false );
 		}
-
+		function zoomM()
+		{
+		  zoom=zoom-1;
+		   alert(zoom);
+		  navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+		
+		}
+		function onDeviceReady()
+{
+		
+    	 document.addEventListener("backbutton", function (e) {
+        e.preventDefault(); 
+    navigator.notification.confirm("Do you want to exit DIVE?", onConfirmExit, "DIVE", "Yes,No");
+    }, false );
+}
 	
-	function onConfirmExit(button) {
+	
+	 
+	function ajaxFunction(){
+			zoom=14;
+         var hr=new XMLHttpRequest();
+		 var url="passVar1.php";
+		 var queryString = "lat1=" + latitude +"&long11=" + longitude;
+		
+         hr.open("POST",url,true);
+		hr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+		hr.onreadystatechange=function(){
+		if(hr.readyState==4 && hr.status==200)
+		{
+			return_data=hr.responseText;
+			document.getElementById("ajaxDiv").innerHTML=return_data;
+			document.getElementById('rest1').value=return_data;
+			procVal();
+		}
+		
+		}
+		hr.send(queryString);
+ }
+
+
+function procVal(){
+	if(document.getElementById("rest1").value.length==0)
+	{
+		//flg='n';
+		//alert("Detecting YOur Location");
+	}
+	else
+	{
+		flg='y';
+		//alert("Searching DIVE Joints");
+		locArr = document.getElementById("rest1").value;
+		locArr = locArr.substring(0, locArr.length - 1);
+		locArr=locArr.split('#');
+		tmpDat1='';
+
+		for (var i = 0, len = locArr.length; i < len; i++) {
+		delimiter = ',';
+		start = 1;
+		result = locArr[i].split(delimiter, start+1).join(delimiter);
+		latR=result.split(',');
+		tmpDat1 +="&markers=" +latR[0]+","+latR[1];
+		}
+		document.getElementById("tmpD").value=tmpDat1;
+		navigator.geolocation.getCurrentPosition(handle_geolocation_query);
+		
+	}	
+	
+	
+}
+
+function onConfirmExit(button) {
     if(button==2){ //If User select a No, then return back;
         return;
     }else{
@@ -40,140 +118,83 @@
     }
 }
 
-	
-		function getLoc()
-		{
-		if (navigator.geolocation)
-        {
-           navigator.geolocation.getCurrentPosition(myMap);
+	function handle_geolocation_query(position)
+    {
+		latitude = position.coords.latitude;
+        longitude = position.coords.longitude;
+        c = document.getElementById("myCanvas");
+		ctx = c.getContext("2d");
+		//c.width = window.innerWidth;
+		//c.height = window.innerHeight;
+		ctx.clearRect(0,0,c.width, c.height);
+   		if(flg=='y')
+			{
+			 	var google_tile = "http://maps.googleapis.com/maps/api/staticmap?center=" + latitude + "," +longitude + "&zoom="+zoom+"&size="+c.width+"x"+c.height+tmpDat1+"&sensor=false";
+			}
+		else
+			{
+           var google_tile = "http://maps.google.com/maps/api/staticmap?sensor=false&center=" + latitude + "," +longitude + "&zoom="+zoom+"&size="+c.width+"x"+c.height+"&markers=color:blue|label:U|" +latitude + ',' + longitude;
+			}
+		var imageObj = new Image();
+        imageObj.src = google_tile;
+        imageObj.onload = function(){
+           ctx.drawImage(imageObj, 0, 0);
         }
-        else
-        {
-           alert("Geolocation API not supported.");
-        }
-	}
-function myMap(position) {
-       x = position.coords.latitude;
-        y = position.coords.longitude;
-  var myCenter = new google.maps.LatLng(x,y);
-  var mapCanvas = document.getElementById("map");
-  var mapOptions = {center: myCenter, zoom: 18};
-  var map = new google.maps.Map(mapCanvas, mapOptions);
-  var marker1 = new google.maps.Marker({position:myCenter});
-  var infowindow = new google.maps.InfoWindow();
-  marker1.setMap(map);
+			
+	 }
+		
+        </script>
+     <title>DIVE</title>
+    </head>
+    <style>
+	body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
-
-function ajaxFunction(){
-			zoom=14;
-         var hr=new XMLHttpRequest();
-		 var url="passVar1.php";
-		 var queryString = "lat1=" + x +"&long11=" + y;
-		alert(queryString);
-         	hr.open("POST",url,true);
-		hr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		hr.onreadystatechange=function(){
-		if(hr.readyState==4 && hr.status==200)
-		{
-			return_data=hr.responseText;
-			//alert(return_data);
-			//document.getElementById("ajaxDiv").innerHTML=return_data;
-			document.getElementById('rest1').value=return_data;
-			procVal();
+    #myCanvas {
+        height: 100%;
+        width: 100%;
+		position: absolute; 
+		
+     }
+	#mapPlaceholder {
+        width: 100%;
+		height: 100%;
+		position: absolute;
 		}
-		
-		}
-		hr.send(queryString);
- }
- 
- function procVal(){
-	if(document.getElementById("rest1").value.length==0)
-	{
-		getLoc();
-	}
-	else
-	{
-		flg='y';
-		//alert("Searching DIVE Joints");
-		locArr = document.getElementById("rest1").value;
-		locArr = locArr.substring(0, locArr.length - 1);
-		locArr=locArr.split('#');
-		tmpDat1='';
-
-		for (var i = 0, len = locArr.length; i < len; i++) {
-		delimiter = ',';
-		start = 2;
-		result = locArr[i].split(delimiter, start+1).join(delimiter);
-		latR=result.split(',');
-		tmpDat1 +="&markers=" +latR[0]+","+latR[1]+","+latR[2];
-		
-		
-		var radlat1 = Math.PI * x/180;
-	    var radlat2 = Math.PI * latR[0]/180;
-		var theta = y-latR[1];
-		var radtheta = Math.PI * theta/180;
-		var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-		dist = Math.acos(dist);
-	    dist = dist * 180/Math.PI;
-		dist = dist * 60 * 1.1515;
-	//  alert(dist+"___"+i);
-	  //alert(len);
-	multiArr.push([latR[2],latR[0],latR[1],dist]);
-		
-		}
-		document.getElementById("tmpD").value=tmpDat1;
-		//navigator.geolocation.getCurrentPosition(handle_geolocation_query);
-		displayArr();
-		
-		
-	}	
-	
-	
-}
-
-function displayArr()
+		 .hideDontTakeUpSpace
+        {
+            display:none;
+        }
+		#controls
 {
-for (var i = 0, len = multiArr.length; i < len; i++) {
-//alert(multiArr[i],multiArr[i],multiArr[i],multiArr[i]);
+  top: 0;
+  left: 0;
+  position: absolute;
+  
 }
- var map1 = new google.maps.Map(document.getElementById('map'), {
-      zoom: 16,
-      center: new google.maps.LatLng(x,y),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    });
-
-   var infowindow = new google.maps.InfoWindow();
-
-    var marker, i;
-
-    for (i = 0; i < multiArr.length; i++) { 
-      marker = new google.maps.Marker({
-        position: new google.maps.LatLng(multiArr[i][1], multiArr[i][2]),
-        map: map1
-      });
-
-      google.maps.event.addListener(marker, 'click', (function(marker, i) {
-        return function() {
-          infowindow.setContent(multiArr[i][0]);
-          infowindow.open(map1, marker);
-        }
-      })(marker, i));
-    }
-	
-	
-}
-
-
-</script>
-<body onload="procVal();">
-	<form id="add_contact" action="passVar1.php" method="post">
-<input type="button" value="LIST" onclick="ajaxFunction();" /><input type="button" value="MAP" id="mapItm" onclick="showMenu();" />
+		
+    </style>
+    <body onload="procVal();">
+	    <table>
+<form id="add_contact" action="passVar1.php" method="post">
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
-<textarea id="tmpD"   rows=6 cols=50></textarea>
-<textarea id="rest1" rows=6 cols=50></textarea>
-	</form>
-<div id="map" style="width:100%;height:500px"></div>
-
-</body>
+<textarea id="tmpD"  class="hideDontTakeUpSpace" rows=1 cols=50></textarea>
+<textarea id="rest1"  class="hideDontTakeUpSpace" rows=1 cols=50></textarea>
+<tr><td><input type="button" value="LIST" onclick="ajaxFunction();" /></td><td><input type="button" value="MAP" id="mapItm" onclick="showMenu();" /></td></tr>
+</form>
+	    </table>
+        <div>
+			<div id="mapPlaceholder">  
+				<canvas id="myCanvas">   </canvas>
+					<menu >
+						<input type="button" style="z-index:2; position:absolute; top:0; left:0" value="+" onclick="zoomP();"><input type="button" value="-" style="z-index:2; position:absolute; top:0; left:2" onclick="zoomM();"/>
+					</menu>	
+					</div>
+        </div>
+    </body>
 </html>
