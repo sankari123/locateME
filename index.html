@@ -62,6 +62,7 @@
 		if(hr.readyState==4 && hr.status==200)
 		{
 			return_data=hr.responseText;
+			alert(return_data);
 			document.getElementById("ajaxDiv").innerHTML=return_data;
 			document.getElementById('rest1').value=return_data;
 			procVal();
