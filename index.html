@@ -49,6 +49,32 @@ function myMap(position) {
 }
 
 
+function loadData()
+{
+
+var url="passVar1.php"+"?lat1=" + x +"&long11=" + y;;
+var xmlhttp;
+
+if (window.XMLHttpRequest) {    
+    xmlhttp = new XMLHttpRequest();
+}
+
+else    //For some versions of IE
+    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+
+
+xmlhttp.onreadystatechange = function()
+{
+    if (xmlhttp.readyState==4 && xmlhttp.status==200) **//conditin is false,**
+    {
+        document.getElementById("ajaxDiv").innerHTML=xmlhttp.responseText; 
+    }
+ }
+
+xmlhttp.open("GET", url, true); **// is this statement correct**
+xmlhttp.send();
+}
+
 function ajaxFunction(){
 			zoom=14;
          var hr=new XMLHttpRequest();
@@ -57,16 +83,19 @@ function ajaxFunction(){
 		
          hr.open("POST",url,true);
 		hr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		hr.onreadystatechange=function(){
-		if(hr.readyState==4 && hr.status==200)
-		{
-			return_data=hr.responseText;
-			//document.getElementById("ajaxDiv").innerHTML=return_data;
-			document.getElementById('rest1').value=return_data;
-			procVal();
-		}
 		
-		}
+		
+		
+		//hr.onreadystatechange=function(){
+		//if(hr.readyState==4 && hr.status==200)
+		//{
+		//	return_data=hr.responseText;
+			//document.getElementById("ajaxDiv").innerHTML=return_data;
+		//	document.getElementById('rest1').value=return_data;
+		//	procVal();
+		//}
+		
+		//}
 		hr.send(queryString);
  }
  
@@ -162,8 +191,8 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 
 </script>
 <body onload="getLoc();">
-<input type="button" value="LIST" onclick="ajaxFunction();" /><input type="button" value="MAP" id="mapItm" onclick="showMenu();" />
-<div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
+<input type="button" value="LIST" onclick="loadData();" /><input type="button" value="MAP" id="mapItm" onclick="showMenu();" />
+<div id='ajaxDiv">Your result will display here</div>
 <textarea id="tmpD"   rows=6 cols=50></textarea>
 <textarea id="rest1" rows=6 cols=50></textarea>
 <div id="map" style="width:100%;height:500px"></div>
