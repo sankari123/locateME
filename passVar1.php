@@ -3,8 +3,6 @@ $user_name = 'dive2016';
 $password = 'Anusha123#';
 $database = 'dive2016';
 $server = 'dive2016.db.5014787.hostedresource.com';
-
-
 mysql_connect("dive2016.db.5014787.hostedresource.com", "dive2016", "Anusha123#") or die(mysql_error()); 
 mysql_select_db("dive2016") or die(mysql_error());  
   $master = array();
@@ -21,7 +19,6 @@ if($result===FALSE)
 {
 	die(mysql_error());
 }
-
 if ($numberOfRows>0) {
     for ($i = 0; $i < $numberOfRows; $i++) {
         $db_field = mysql_fetch_assoc($result);
