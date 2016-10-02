@@ -52,7 +52,7 @@ function myMap(position) {
 function loadData()
 {
 
-var url="passVar1.php"+"?lat1=" + x +"&long11=" + y;
+var url1="passVar1.php"+"?lat1=" + x +"&long11=" + y;
 var xmlhttp;
 
 if (window.XMLHttpRequest) {    
@@ -71,34 +71,10 @@ xmlhttp.onreadystatechange = function()
     }
  }
 
-xmlhttp.open("GET", url, true); **// is this statement correct**
+xmlhttp.open("POST", url1, true); **// is this statement correct**
 xmlhttp.send();
 }
 
-function ajaxFunction(){
-			zoom=14;
-         var hr=new XMLHttpRequest();
-		 var url="passVar1.php";
-		 var queryString = "lat1=" + x +"&long11=" + y;
-		
-         hr.open("POST",url,true);
-		hr.setRequestHeader("Content-type","application/x-www-form-urlencoded");
-		
-		
-		
-		//hr.onreadystatechange=function(){
-		//if(hr.readyState==4 && hr.status==200)
-		//{
-		//	return_data=hr.responseText;
-			//document.getElementById("ajaxDiv").innerHTML=return_data;
-		//	document.getElementById('rest1').value=return_data;
-		//	procVal();
-		//}
-		
-		//}
-		hr.send(queryString);
- }
- 
  function procVal(){
 	if(document.getElementById("rest1").value.length==0)
 	{
@@ -187,7 +163,19 @@ function distance(lat1, lon1, lat2, lon2, unit) {
 	if (unit=="N") { dist = dist * 0.8684 }
 	//return dist
 }
-
+function onConfirmExit(button) {
+    if(button==2){ //If User select a No, then return back;
+        return;
+    }else{
+    	if (navigator.app) {
+            navigator.app.exitApp();
+        }
+        else if (navigator.device) {
+            navigator.device.exitApp();
+        }
+       // navigator.app.exitApp(); // If user select a Yes, quit from the app.
+    }
+}
 
 </script>
 <body onload="getLoc();">
