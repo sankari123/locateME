@@ -8,7 +8,6 @@
 	
 
 <script>
-
 		var x,y;
 		var flg;
 	    	var return_data;
@@ -42,9 +41,17 @@
        // navigator.app.exitApp(); // If user select a Yes, quit from the app.
 		}
 		}
-
-	
-		function ajaxCall() {
+	   var mnu_select=true;
+		function ajaxCall(passVar) {
+		    if(passVar=='true')
+			{
+			mnu_select=true;
+			}
+			else
+			{
+			mnu_select=false;
+			}
+		
 			zoom=14;
 var params = "lat1=" + x +"&long11=" + y; 
  var myURL="http://www.writeacademy.in/dive/passVar1.php"; 
@@ -53,7 +60,6 @@ var params = "lat1=" + x +"&long11=" + y;
         request.setRequestHeader("Content-type", "application/x-www-form-urlencoded"); 
         request.setRequestHeader("Content-length", params.length); 
         request.setRequestHeader("Connection", "close"); 
-
         request.onreadystatechange = function() {//Call a function when the state changes. 
                 if(request.readyState == 4 && request.status == 200) { 
                      //   alert("response: "+request.responseText);
@@ -97,9 +103,6 @@ img.onload = function(){
     ctx.drawImage(img,0,0);
 }
 }
-
-
-
  function procVal(){
 	if(document.getElementById("rest1").value.length==0)
 	{
@@ -112,7 +115,6 @@ img.onload = function(){
 		locArr = locArr.substring(0, locArr.length - 1);
 		locArr=locArr.split('#');
 		tmpDat1='';
-
 		for (var i = 0, len = locArr.length; i < len; i++) {
 		delimiter = ',';
 		start = 2;
@@ -143,28 +145,25 @@ img.onload = function(){
 	
 	
 }
-
 function displayArr()
 {
 for (var i = 0, len = multiArr.length; i < len; i++) {
 //alert(multiArr[i],multiArr[i],multiArr[i],multiArr[i]);
 }
+	if(mnu_select==true)
+	{
  var map = new google.maps.Map(document.getElementById('map'), {
       zoom: zoom,
       center: new google.maps.LatLng(x,y),
       mapTypeId: google.maps.MapTypeId.ROADMAP
     });
-
    var infowindow = new google.maps.InfoWindow();
-
     var marker, i;
-
     for (i = 0; i < multiArr.length; i++) { 
       marker = new google.maps.Marker({
         position: new google.maps.LatLng(multiArr[i][1], multiArr[i][2]),
         map: map
       });
-
       google.maps.event.addListener(marker, 'click', (function(marker, i) {
         return function() {
           infowindow.setContent(multiArr[i][0]);
@@ -172,29 +171,28 @@ for (var i = 0, len = multiArr.length; i < len; i++) {
         }
       })(marker, i));
     }
-	
+	}
+	else
+	{
+		showTbl();
+}
 	
 }
-function distance(lat1, lon1, lat2, lon2, unit) {
-	var radlat1 = Math.PI * lat1/180
-	var radlat2 = Math.PI * lat2/180
-	var theta = lon1-lon2
-	var radtheta = Math.PI * theta/180
-	var dist = Math.sin(radlat1) * Math.sin(radlat2) + Math.cos(radlat1) * Math.cos(radlat2) * Math.cos(radtheta);
-	dist = Math.acos(dist)
-	dist = dist * 180/Math.PI
-	dist = dist * 60 * 1.1515
-	if (unit=="K") { dist = dist * 1.609344 }
-	if (unit=="N") { dist = dist * 0.8684 }
-	//return dist
-}
+
 function showTbl()
 	{
-	document.getElementById("map1").dispay="none";
-	document.getElementById("map1").visible=false;
-	document.getElementById("tbl").dispay="block";
+	document.getElementById("map").style.display="none";
+	document.getElementById("map").style.visibility=false;
+	document.getElementById("lst_mnu").style.display="block";
+	lst_mnu.innerHTML="";
+for (var i = 0, len = multiArr.length; i < len; i++) {
+     
+	     imgName="http://www.writeacademy.in/dive/images/"+multiArr[i][0].replace(/\s/g, '_')+'.jpg';
+		 //alert(imgName);
+	  //lst_mnu.innerHTML = lst_mnu.innerHTML +"<BR>"+"<input type='text' name='mytext'+ i value='"+aName[0][0]+"'>"
+	  lst_mnu.innerHTML = lst_mnu.innerHTML +"<img src='"+imgName+"' width='50px' height='50px'>"+"<input type='text' name='mytext'+ i value='"+multiArr[i][0]+"'>"+"<input type='text' name='mytext'+ i value='"+multiArr[i][3]+"'>"+"<BR>"
 	}
-
+	}
 </script>
 <style>
 body, html {
@@ -204,7 +202,6 @@ body, html {
     padding: 0;
     overflow: hidden;
 }
-
     #map1 {
     width: 100%;
     height: 65.85%;
@@ -223,7 +220,7 @@ body, html {
   position: absolute;
   
 }
-	#tbl
+	#lst_mnu
 	{
 		display:none;
 	}
@@ -233,14 +230,13 @@ body, html {
 <body onload="getLoc();">
 	<table width="100%" bgcolor="#d78f97">
 		<tr><td colspan=2>DIVE</td></tr>
-		<tr><td width="50%" align="center"><input type="button" value="LIST" onclick="ajaxCall();" /></td><td width="50%" align="center"><input type="button" value="MAP" id="mapItm" onclick="showTbl();" /></td></tr>
+		<tr><td width="50%" align="center"><input type="button" value="LIST" onclick="ajaxCall('true');" /></td><td width="50%" align="center"><input type="button" value="MAP" id="mapItm" onclick="ajaxCall('false');" /></td></tr>
 	</table>
 <div id="map" style="position:fixed;width:100%;height:500px">
 	<canvas id="map1">   </canvas>
-	<table id="tbl">
-		<tr><td>Test</td><td>Test</td><td>Test</td><td>Test</td></tr>
-	</table>
-	
+	</div>
+	<div id="lst_mnu">
+		
 	</div>
 	
 <div id='ajaxDiv' class="hideDontTakeUpSpace">Your result will display here</div>
